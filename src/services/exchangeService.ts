@@ -92,7 +92,7 @@ export class ExchangeService {
       clearTimeout(existingTimer);
     }
 
-    let throttleDelay = 300;
+    const throttleDelay = 300;
 
     const timer = setTimeout(() => {
       const marketData: MarketData = {
@@ -225,7 +225,7 @@ export class ExchangeService {
     return 0.001;
   }
 
-  private connectOKX(symbol: string, callback: (data: MarketData) => void): void {
+  private connectOKX(symbol: string): void {
     const ws = new WebSocket(this.venues[0].wsUrl!);
     
     if (ws.binaryType) {
@@ -318,7 +318,7 @@ export class ExchangeService {
   }
 
   // Bybit WebSocket connection with optimized settings
-  private connectBybit(symbol: string, callback: (data: MarketData) => void): void {
+  private connectBybit(symbol: string): void {
     const ws = new WebSocket(this.venues[1].wsUrl!);
     
     // Optimize WebSocket settings for lower latency
@@ -440,7 +440,7 @@ export class ExchangeService {
   }
 
   // Deribit WebSocket connection with optimized settings
-  private connectDeribit(symbol: string, callback: (data: MarketData) => void): void {
+  private connectDeribit(symbol: string): void {
     const ws = new WebSocket(this.venues[2].wsUrl!);
     
     // Optimize WebSocket settings for lower latency
@@ -490,7 +490,7 @@ export class ExchangeService {
         if (data.result && data.id === 0) {
           // Find a perpetual contract
           const instruments = data.result;
-          const perpetual = instruments.find((inst: any) => 
+          const perpetual = instruments.find((inst: {instrument_name: string, is_active: boolean}) => 
             inst.instrument_name.includes('PERPETUAL') && inst.is_active
           );
           
@@ -701,13 +701,13 @@ export class ExchangeService {
     try {
       switch (venue) {
         case 'okx':
-          this.connectOKX(symbol, callback);
+          this.connectOKX(symbol);
           break;
         case 'bybit':
-          this.connectBybit(symbol, callback);
+          this.connectBybit(symbol);
           break;
         case 'deribit':
-          this.connectDeribit(symbol, callback);
+          this.connectDeribit(symbol);
           break;
         default:
           console.error('Unknown venue:', venue);

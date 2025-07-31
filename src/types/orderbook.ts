@@ -32,6 +32,7 @@ export interface SimulatedOrder {
   price?: number;
   quantity: number;
   timestamp: number; // When the order was created
+  timing?: number; // Optional delay in seconds
 }
 
 export interface MarketData {

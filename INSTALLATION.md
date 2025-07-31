@@ -10,22 +10,18 @@
 
 1. **Clone the repository**
    ```bash
-   git clone <repository-url>
+   git clone https://github.com/Akhilesh-max/orderbook-viewer.git
    cd orderbook-viewer
    ```
 
 2. **Install dependencies**
    ```bash
    npm install
-   # or
-   yarn install
    ```
 
 3. **Start the development server**
    ```bash
    npm run dev
-   # or
-   yarn dev
    ```
 
 4. **Open your browser**
@@ -74,10 +70,3 @@ No additional environment variables are required for basic functionality. The ap
 - **Tailwind CSS** for styling
 - **Lucide React** for icons
 - **Next.js** for React framework
-
-## Browser Compatibility
-
-- Chrome 80+
-- Firefox 75+
-- Safari 13+
-- Edge 80+

@@ -122,7 +122,6 @@ export default function Home() {
               <TradesViewer
                 simulatedOrders={simulatedOrders}
                 onClearTrades={clearSimulatedOrders}
-                marketData={marketData}
               />
             </div>
           </div>

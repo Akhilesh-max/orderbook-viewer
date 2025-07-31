@@ -1,5 +1,5 @@
 import { useMemo, memo } from 'react';
-import { MarketData, SimulatedOrder, OrderBookLevel, Venue } from '@/types/orderbook';
+import { MarketData, SimulatedOrder, Venue, OrderBookLevel } from '@/types/orderbook';
 import { TrendingUp, TrendingDown, Activity, Maximize2, Minimize2 } from 'lucide-react';
 import { VenueSelector } from './VenueSelector';
 
@@ -57,9 +57,9 @@ function OrderBookViewerComponent({
       return null;
     }
 
-    const injectLimitOrders = (levels: any[], side: 'buy' | 'sell') => {
+    const injectLimitOrders = (levels: OrderBookLevel[], side: 'buy' | 'sell') => {
       const relevantOrders = limitOrders.filter(order => order.side === side && order.price);
-      let combinedLevels = [...levels];
+      const combinedLevels: OrderBookLevel[] = [...levels];
 
       relevantOrders.forEach((order, orderIndex) => {
         if (order.price) {
@@ -76,7 +76,7 @@ function OrderBookViewerComponent({
             };
           } else {
             combinedLevels.push({
-              price: order.price,
+              price: order.price!,
               quantity: order.quantity,
               isLimitOrder: true,
               limitOrderIndex: orderIndex
@@ -88,7 +88,7 @@ function OrderBookViewerComponent({
       return combinedLevels;
     };
 
-    let bidsWithOrders = injectLimitOrders(orderbook.bids, 'buy');
+    const bidsWithOrders = injectLimitOrders(orderbook.bids, 'buy');
     const sortedBids = bidsWithOrders
       .filter(bid =>
         bid &&
@@ -111,7 +111,7 @@ function OrderBookViewerComponent({
           sum + (typeof b.quantity === 'number' && !isNaN(b.quantity) ? Number(b.quantity) : 0), 0)
       }));
 
-    let asksWithOrders = injectLimitOrders(orderbook.asks, 'sell');
+    const asksWithOrders = injectLimitOrders(orderbook.asks, 'sell');
     const sortedAsks = asksWithOrders
       .filter(ask =>
         ask &&
@@ -275,7 +275,7 @@ function OrderBookViewerComponent({
               </div>
               {bidsWithTotal.length > 0 ? bidsWithTotal.map((bid, index) => {
                 const isLimitOrder = bid.isLimitOrder;
-                const orderStyling = isLimitOrder ? orderColors[bid.limitOrderIndex % 5] : null;
+                const orderStyling = isLimitOrder && bid.limitOrderIndex !== undefined ? orderColors[bid.limitOrderIndex % 5] : null;
 
                 return (
                   <div
@@ -334,7 +334,7 @@ function OrderBookViewerComponent({
               </div>
               {asksWithTotal.length > 0 ? asksWithTotal.map((ask, index) => {
                 const isLimitOrder = ask.isLimitOrder;
-                const orderStyling = isLimitOrder ? orderColors[ask.limitOrderIndex % 5] : null;
+                const orderStyling = isLimitOrder && ask.limitOrderIndex !== undefined ? orderColors[ask.limitOrderIndex % 5] : null;
 
                 return (
                   <div

@@ -14,8 +14,7 @@ A modern Next.js application for real-time cryptocurrency orderbook visualizatio
 ## 🚀 Quick Start
 
 ```bash
-# Clone and install
-git clone <repository-url>
+git clone https://github.com/Akhilesh-max/orderbook-viewer.git
 cd orderbook-viewer
 npm install
 
@@ -24,11 +23,6 @@ npm run dev
 ```
 
 Visit `http://localhost:3000` to start trading simulation.
-
-## 📖 Documentation
-
-- [Installation Guide](INSTALLATION.md) - Detailed setup instructions
-- [Architecture Overview](ARCHITECTURE.md) - Technical implementation details
 
 ## 🎯 How to Use
 
@@ -56,23 +50,67 @@ Choose from OKX, Bybit, or Deribit exchanges. The live indicator shows connectio
 - **WebSocket APIs** - Real-time exchange data
 - **Lucide React** - Modern icon library
 
-## 🏗 Project Structure
+## 🏗 Code Structure
 
+### Core Components
+
+**`src/app/page.tsx`** - Main application orchestrator
+- Manages global state and WebSocket connections
+- Coordinates data flow between components
+
+**`src/components/OrderBookViewer.tsx`** - Orderbook visualization
+- Renders bid/ask levels with real-time updates
+- Shows simulated order positions with visual indicators
+
+**`src/components/OrderSimulationForm.tsx`** - Order creation interface
+- Handles order type, side, price, quantity, and delay inputs
+- Form validation and submission
+
+**`src/services/exchangeService.ts`** - WebSocket management
+- Manages connections to multiple exchanges
+- Normalizes data formats and handles reconnections
+
+### Key Types
+
+```typescript
+interface OrderBookLevel {
+  price: number;
+  quantity: number;
+  isLimitOrder?: boolean;
+  limitOrderIndex?: number;
+}
+
+interface SimulatedOrder {
+  id: string;
+  venue: string;
+  symbol: string;
+  side: 'buy' | 'sell';
+  type: 'market' | 'limit';
+  price?: number;
+  quantity: number;
+  timestamp: number;
+  timing?: number;
+}
 ```
-src/
-├── app/                    # Next.js app router
-├── components/             # React components
-├── services/              # API and WebSocket services
-└── types/                 # TypeScript definitions
-```
 
-## 🔗 Supported Exchanges
+### Data Flow
 
-| Exchange | WebSocket | Status |
-|----------|-----------|---------|
-| OKX      | ✅        | Live    |
-| Bybit    | ✅        | Live    |
-| Deribit  | ✅        | Live    |
+1. **Connection**: User selects venue → WebSocket connection established
+2. **Real-time Updates**: Exchange data → Service normalization → React state
+3. **Order Simulation**: Form submission → Order creation → Visual feedback
+
+## 🔗 Exchange Integration
+
+| Exchange | WebSocket Endpoint | Data Format |
+|----------|-------------------|-------------|
+| OKX      | `wss://ws.okx.com:8443/ws/v5/public` | Standard orderbook |
+| Bybit    | `wss://stream.bybit.com/v5/public/spot` | Spot trading data |
+| Deribit  | `wss://www.deribit.com/ws/api/v2` | Perpetual contracts |
+
+Each exchange connection handles:
+- Automatic reconnection on failures
+- Data normalization to common format
+- Rate limiting and error handling
 
 ## 📝 License
 

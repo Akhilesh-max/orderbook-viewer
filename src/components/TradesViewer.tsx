@@ -1,14 +1,13 @@
 import { useMemo } from 'react';
-import { SimulatedOrder, MarketData } from '@/types/orderbook';
+import { SimulatedOrder } from '@/types/orderbook';
 import { TrendingUp, TrendingDown, Clock } from 'lucide-react';
 
 interface TradesViewerProps {
   simulatedOrders: SimulatedOrder[];
   onClearTrades: () => void;
-  marketData?: MarketData | null;
 }
 
-export function TradesViewer({ simulatedOrders, onClearTrades, marketData }: TradesViewerProps) {
+export function TradesViewer({ simulatedOrders, onClearTrades }: TradesViewerProps) {
   const sortedOrders = useMemo(() => {
     return [...simulatedOrders].sort((a, b) => b.timestamp - a.timestamp);
   }, [simulatedOrders]);
@@ -87,7 +86,7 @@ export function TradesViewer({ simulatedOrders, onClearTrades, marketData }: Tra
                         second: '2-digit'
                       })}
                     </span>
-                    {order.timing > 0 && (
+                    {order.timing && order.timing > 0 && (
                       <span className="text-xs bg-blue-100 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400 px-2 py-1 rounded-full">
                         {order.timing}s delay
                       </span>
