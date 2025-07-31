@@ -1,36 +1,79 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Orderbook Trading Simulator
 
-## Getting Started
+A modern Next.js application for real-time cryptocurrency orderbook visualization and trade simulation across multiple exchanges.
 
-First, run the development server:
+## ✨ Features
+
+- **Multi-Exchange Support** - OKX, Bybit, and Deribit integration
+- **Real-Time Data** - Live orderbook updates via WebSocket connections
+- **Order Simulation** - Test market and limit orders with configurable delays
+- **Visual Impact Analysis** - See order placement and market impact
+- **Responsive Design** - Works seamlessly on desktop and mobile
+- **Dark Mode** - Automatic theme switching
+
+## 🚀 Quick Start
 
 ```bash
+# Clone and install
+git clone <repository-url>
+cd orderbook-viewer
+npm install
+
+# Start development server
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Visit `http://localhost:3000` to start trading simulation.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## 📖 Documentation
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+- [Installation Guide](INSTALLATION.md) - Detailed setup instructions
+- [Architecture Overview](ARCHITECTURE.md) - Technical implementation details
 
-## Learn More
+## 🎯 How to Use
 
-To learn more about Next.js, take a look at the following resources:
+### Exchange Selection
+Choose from OKX, Bybit, or Deribit exchanges. The live indicator shows connection status.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+### Order Simulation
+1. **Type** - Market or Limit orders
+2. **Side** - Buy or Sell
+3. **Price** - Set limit price (limit orders only)
+4. **Quantity** - Order size
+5. **Delay** - Execution timing (5s, 10s, 15s)
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+### Orderbook Visualization
+- **Green** - Bid orders (buyers)
+- **Red** - Ask orders (sellers)  
+- **Highlights** - Your simulated order positions
+- **Depth Bars** - Cumulative volume visualization
 
-## Deploy on Vercel
+## 🛠 Tech Stack
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+- **Next.js 15** - React framework with App Router
+- **TypeScript** - Type safety and developer experience
+- **Tailwind CSS** - Utility-first styling
+- **WebSocket APIs** - Real-time exchange data
+- **Lucide React** - Modern icon library
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## 🏗 Project Structure
+
+```
+src/
+├── app/                    # Next.js app router
+├── components/             # React components
+├── services/              # API and WebSocket services
+└── types/                 # TypeScript definitions
+```
+
+## 🔗 Supported Exchanges
+
+| Exchange | WebSocket | Status |
+|----------|-----------|---------|
+| OKX      | ✅        | Live    |
+| Bybit    | ✅        | Live    |
+| Deribit  | ✅        | Live    |
+
+## 📝 License
+
+Educational and demonstration purposes only.
