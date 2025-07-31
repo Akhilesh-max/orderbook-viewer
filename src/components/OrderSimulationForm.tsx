@@ -17,7 +17,7 @@ export function OrderSimulationForm({
   const [side, setSide] = useState<'buy' | 'sell'>('buy');
   const [price, setPrice] = useState<string>('');
   const [quantity, setQuantity] = useState<string>('');
-  const [delay, setDelay] = useState<number>(5);
+  const [delay, setDelay] = useState<number>(0);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -158,7 +158,7 @@ export function OrderSimulationForm({
             Delay:
           </label>
           <div className="flex gap-1">
-            {[5, 10, 15].map((delayOption) => (
+            {[0, 5, 10, 15].map((delayOption) => (
               <button
                 key={delayOption}
                 type="button"
